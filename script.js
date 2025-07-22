@@ -1,5 +1,5 @@
 // light and dark mode toggle
-// interchange display
+// 1.2 * 4.05 + 1.2 not working => ans.toFixed is not a function
 
 let numbers = document.querySelectorAll('.number-btn');
 let current = document.querySelector('.current-calc');
@@ -15,21 +15,22 @@ numbers.forEach((number) => {
         operators.forEach((operator) => {
             operator.style.backgroundColor = 'rgb(234, 213, 120)';
         });
+
         if (operationJustRan) {
             current.innerText = '';
             last.innerText = '';
             operationJustRan = false;
         }
-        let text = last.innerText;
+
+        let text = current.innerText;
         textArr = text.split('');
-        if ((!isNaN(textArr[textArr.length - 1])) || (textArr[textArr.length - 1] === '.')) {
+        if ((!isNaN(textArr[textArr.length - 1])) || (textArr[textArr.length - 1] === '.') || textArr.length === 0) {
             current.innerText += `${e.target.value}`;
-            last.innerText += `${e.target.value}`;
         }
         else {
-            current.innerText = `${e.target.value}`;
-            last.innerText += ` ${e.target.value}`;
+            current.innerText += ` ${e.target.value}`;
         }
+        last.innerText = '';
     });
 });
 
@@ -55,23 +56,23 @@ add.addEventListener('click', () => {
     });
 
     if (operatorPresent) {
-        let text = last.innerText;
+        let text = current.innerText;
         if ((text[text.length - 1] === '+') || (text[text.length - 1] === '-') || (text[text.length - 1] === '*') || (text[text.length - 1] === '/') || (text[text.length - 1] === '%')) {
             let textArr = text.split(' ');
             textArr.pop();
-            last.innerText = textArr.join(' ');
-        }
-        else {
-            operate(last.innerText);
-            operatorPresent = false;
+            current.innerText = textArr.join(' ');
         }
     }
 
-    if (last.innerText) {
-        add.style.backgroundColor = 'rgba(209, 146, 88, 1)';
-        last.innerText += ' +';
-        operatorPresent = true;
+    if (operationJustRan) {
+        last.innerText = '';
         operationJustRan = false;
+    }
+
+    if (current.innerText) {
+        add.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        current.innerText += ' +';
+        operatorPresent = true;
     }
 });
 
@@ -81,23 +82,23 @@ subtract.addEventListener('click', () => {
     });
 
     if (operatorPresent) {
-        let text = last.innerText;
+        let text = current.innerText;
         if ((text[text.length - 1] === '+') || (text[text.length - 1] === '-') || (text[text.length - 1] === '*') || (text[text.length - 1] === '/') || (text[text.length - 1] === '%')) {
             let textArr = text.split(' ');
             textArr.pop();
-            last.innerText = textArr.join(' ');
-        }
-        else {
-            operate(last.innerText);
-            operatorPresent = false;
+            current.innerText = textArr.join(' ');
         }
     }
     
-    if (last.innerText) {
-        subtract.style.backgroundColor = 'rgba(209, 146, 88, 1)';
-        last.innerText += ' -';
-        operatorPresent = true;
+    if (operationJustRan) {
+        last.innerText = '';
         operationJustRan = false;
+    }
+
+    if (current.innerText) {
+        subtract.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        current.innerText += ' -';
+        operatorPresent = true;
     }
 });
 
@@ -107,23 +108,23 @@ multiply.addEventListener('click', () => {
     });
 
     if (operatorPresent) {
-        let text = last.innerText;
+        let text = current.innerText;
         if ((text[text.length - 1] === '+') || (text[text.length - 1] === '-') || (text[text.length - 1] === '*') || (text[text.length - 1] === '/') || (text[text.length - 1] === '%')) {
             let textArr = text.split(' ');
             textArr.pop();
-            last.innerText = textArr.join(' ');
-        }
-        else {
-            operate(last.innerText);
-            operatorPresent = false;
+            current.innerText = textArr.join(' ');
         }
     }
     
-    if (last.innerText) {
-        multiply.style.backgroundColor = 'rgba(209, 146, 88, 1)';
-        last.innerText += ' *';
-        operatorPresent = true;
+    if (operationJustRan) {
+        last.innerText = '';
         operationJustRan = false;
+    }
+
+    if (current.innerText) {
+        multiply.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        current.innerText += ' *';
+        operatorPresent = true;
     }
 });
 
@@ -133,23 +134,23 @@ divide.addEventListener('click', () => {
     });
 
     if (operatorPresent) {
-        let text = last.innerText;
+        let text = current.innerText;
         if ((text[text.length - 1] === '+') || (text[text.length - 1] === '-') || (text[text.length - 1] === '*') || (text[text.length - 1] === '/') || (text[text.length - 1] === '%')) {
             let textArr = text.split(' ');
             textArr.pop();
-            last.innerText = textArr.join(' ');
-        }
-        else {
-            operate(last.innerText);
-            operatorPresent = false;
+            current.innerText = textArr.join(' ');
         }
     }
     
-    if (last.innerText) {
-        divide.style.backgroundColor = 'rgba(209, 146, 88, 1)';
-        last.innerText += ' /';
-        operatorPresent = true;
+    if (operationJustRan) {
+        last.innerText = '';
         operationJustRan = false;
+    }
+
+    if (current.innerText) {
+        divide.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        current.innerText += ' /';
+        operatorPresent = true;
     }
 });
 
@@ -159,31 +160,29 @@ modulo.addEventListener('click', () => {
     });
 
     if (operatorPresent) {
-        let text = last.innerText;
+        let text = current.innerText;
         if ((text[text.length - 1] === '+') || (text[text.length - 1] === '-') || (text[text.length - 1] === '*') || (text[text.length - 1] === '/') || (text[text.length - 1] === '%')) {
             let textArr = text.split(' ');
             textArr.pop();
-            last.innerText = textArr.join(' ');
-            operatorPresent = false;
-        }
-        else {
-            operate(last.innerText);
-            operatorPresent = false;
+            current.innerText = textArr.join(' ');
         }
     }
     
-    if (last.innerText) {
-        modulo.style.backgroundColor = 'rgba(209, 146, 88, 1)';
-        last.innerText += ' %';
-        operatorPresent = true;
+    if (operationJustRan) {
+        last.innerText = '';
         operationJustRan = false;
+    }
+
+    if (current.innerText) {
+        modulo.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        current.innerText += ' %';
+        operatorPresent = true;
     }
 });
 
-function performAddition(opArr) {
-    let op1 = +opArr[0];
-    let op2 = +opArr[2];
-    let ans = op1 + op2;
+function performAddition(num1, num2) {
+    let ans = num1 + num2;
+    console.log(ans);
 
     if (!(Number.isInteger(ans))) {
         let ansStr = ans.toString();
@@ -192,15 +191,11 @@ function performAddition(opArr) {
             ans = ans.toFixed(3);
         }
     }
-
-    last.innerText = `${ans}`;
-    current.innerText = `${ans}`;
+    return +ans;
 }
 
-function performSubtraction(opArr) {
-    let op1 = +opArr[0];
-    let op2 = +opArr[2];
-    let ans = op1 - op2;
+function performSubtraction(num1, num2) {
+    let ans = num1 - num2;
 
     if (!(Number.isInteger(ans))) {
         let ansStr = ans.toString();
@@ -209,15 +204,11 @@ function performSubtraction(opArr) {
             ans = ans.toFixed(3);
         }
     }
-
-    last.innerText = `${ans}`;
-    current.innerText = `${ans}`;
+    return +ans;
 }
 
-function performMultiplication(opArr) {
-    let op1 = +opArr[0];
-    let op2 = +opArr[2];
-    let ans = op1 * op2;
+function performMultiplication(num1, num2) {
+    let ans = num1 * num2;
 
     if (!(Number.isInteger(ans))) {
         let ansStr = ans.toString();
@@ -226,15 +217,11 @@ function performMultiplication(opArr) {
             ans = ans.toFixed(3);
         }
     }
-
-    last.innerText = `${ans}`;
-    current.innerText = `${ans}`;
+    return +ans;
 }
 
-function performDivision(opArr) {
-    let op1 = +opArr[0];
-    let op2 = +opArr[2];
-    let ans = op1 / op2;
+function performDivision(num1, num2) {
+    let ans = num1 / num2;
 
     if (!(Number.isInteger(ans))) {
         let ansStr = ans.toString();
@@ -243,15 +230,11 @@ function performDivision(opArr) {
             ans = ans.toFixed(3);
         }
     }
-
-    last.innerText = `${ans}`;
-    current.innerText = `${ans}`;
+    return +ans;
 }
 
-function performModulo(opArr) {
-    let op1 = +opArr[0];
-    let op2 = +opArr[2];
-    let ans = op1 % op2;
+function performModulo(num1, num2) {
+    let ans = num1 % num2;
 
     if (!(Number.isInteger(ans))) {
         let ansStr = ans.toString();
@@ -260,53 +243,72 @@ function performModulo(opArr) {
             ans = ans.toFixed(3);
         }
     }
-
-    last.innerText = `${ans}`;
-    current.innerText = `${ans}`;
+    return +ans;
 }
 
 function operate(operation) {
     let opArr = operation.split(' ');
-    if (opArr.length > 3) {
-        alert('Operation not possible');
-        return;
+    let nums = [];
+    let ops = [];
+
+    for (let i = 0; i < opArr.length; i++) {
+        if (!isNaN(opArr[i])) {
+            nums.push(+(opArr[i]));
+        }
+        else {
+            ops.push(opArr[i]);
+        }
     }
-    switch (opArr[1]) {
-        case '+':
-            performAddition(opArr);
-            operatorPresent = false;
-            operationJustRan = true;
-            break;
-        case '-':
-            performSubtraction(opArr);
-            operatorPresent = false;
-            operationJustRan = true;
-            break;
-        case '*':
-            performMultiplication(opArr);
-            operatorPresent = false;
-            operationJustRan = true;
-            break;
-        case '/':
-            performDivision(opArr);
-            operatorPresent = false;
-            operationJustRan = true;
-            break;
-        case '%':
-            performModulo(opArr);
-            operatorPresent = false;
-            operationJustRan = true;
-            break;
-        default:
-            alert('Operation not possible!');
-            break;
+
+    for (let i = 0; i < ops.length; i++) {
+        if (ops[i] === '/' || ops[i] === '*' || ops[i] === '%') {
+            let result;
+            if (ops[i] === '/') {
+                result = performDivision(nums[i], nums[i+1]);
+            }
+            else if (ops[i] === '*') {
+                result = performMultiplication(nums[i], nums[i+1]);
+            }
+            else {
+                result = performModulo(nums[i], nums[i+1]);
+            }
+
+            nums.splice(i, 2, result);
+            ops.splice(i, 1);
+            i--;
+        }
     }
+
+    for (let i = 0; i < ops.length; i++) {
+        if (ops[i] === '+' || ops[i] === '-') {
+            let result;
+            if (ops[i] === '+') {
+                result = performAddition(nums[i], nums[i+1]);
+            }
+            else {
+                result = performSubtraction(nums[i], nums[i+1]);
+            }
+
+            nums.splice(i, 2, result);
+            ops.splice(i, 1);
+            i--;
+        }
+    }
+
+    operatorPresent = false;
+    operationJustRan = true;
+    return nums[0];
 }
 
 let equalto = document.querySelector('.equalto-btn');
 
 equalto.addEventListener('click', () => {
-    operate(last.innerText);
+    operators.forEach((operator) => {
+        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+    });
+    let res = operate(current.innerText);
+    last.innerText = current.innerText;
+    current.innerText = `${res}`;
 });
 
 let decimal = document.querySelector('.decimal-btn');
@@ -318,57 +320,65 @@ decimal.addEventListener('click', () => {
         operationJustRan = false;
     }
 
-    let cur = current.innerText;
-    let text = last.innerText;
-    textArr = text.split('');
+    let textArr = current.innerText.split('');
 
-    if (!isNaN(textArr[textArr.length - 1])) {
-        if (!(cur.includes('.'))) {
+    if ((!isNaN(textArr[textArr.length - 1])) || (textArr[textArr.length - 1] === '.')) {
+        let arr = current.innerText.split(' ');
+        if (!(arr[arr.length - 1].includes('.'))) {
             current.innerText += '.';
-            last.innerText += '.';
         }
     }
     else {
-        current.innerText = '.';
-        last.innerText += ' .';
+        if (current.innerText) {
+            current.innerText += ' .';
+        }
+        else {
+            current.innerText += '.';
+        }
     }
+
+    operators.forEach((operator) => {
+        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+    });
 });
 
 let deleteBtn = document.querySelector('.delete-btn');
 
 deleteBtn.addEventListener('click', () => {
-    let text = last.innerText;
+    let text = current.innerText;
     textArr = text.split('');
     if ((!isNaN(textArr[textArr.length - 1])) || textArr[textArr.length - 1] === '.') {
         textArr.pop();
-        last.innerText = textArr.join('');
-        let text1 = current.innerText;
-        text1Arr = text1.split('');
-        text1Arr.pop();
-        current.innerText = text1Arr.join('');
+        if (textArr[textArr.length - 1] === '-') {
+            textArr.pop();
+        }
+        current.innerText = textArr.join('');
         return;
     }
 
-    let arr = last.innerText.split(' ');
+    let arr = current.innerText.split(' ');
     arr.pop();
-    last.innerText = arr.join(' ');
+    current.innerText = arr.join(' ');
     operatorPresent = false;
-    if (current.innerText === '-') {
-        current.innerText = '';
-    }
+
+    operators.forEach((operator) => {
+        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+    });
 });
 
 let negative = document.querySelector('.negative-btn');
 
 negative.addEventListener('click', () => {
-    let text = last.innerText;
-    arr = text.split(' ');
-    if (+(arr[arr.length - 1])) {
+    arr = current.innerText.split(' ');
+    if (!isNaN(arr[arr.length - 1])) {
         let num = +(arr[arr.length - 1]);
         num *= -1;
         arr.pop();
         arr.push(num.toString());
-        last.innerText = arr.join(' ');
-        current.innerText = num.toString();
+        current.innerText = arr.join(' ');
     }
+
+    operators.forEach((operator) => {
+        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+    });
 });
