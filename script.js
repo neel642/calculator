@@ -1,3 +1,7 @@
+// only . should become 0.
+// consecutive divisions by 0 should give only one error
+// error to be displayed on current.innertext
+
 let numbers = document.querySelectorAll('.number-btn');
 let current = document.querySelector('.current-calc');
 let last = document.querySelector('.last-calc');
@@ -19,6 +23,10 @@ numbers.forEach((number) => {
             }
         });
 
+        if (current.innerText === '0') {
+            current.innerText = '';
+        }
+
         if (operationJustRan) {
             current.innerText = '';
             last.innerText = '';
@@ -39,7 +47,7 @@ numbers.forEach((number) => {
 
 clear.addEventListener('click', () => {
     last.innerText = '';
-    current.innerText = '';
+    current.innerText = '0';
     operators.forEach((operator) => {
         if (operator.classList.contains('add-btn') || 
             operator.classList.contains('subtract-btn') ||
@@ -379,12 +387,20 @@ deleteBtn.addEventListener('click', () => {
             textArr.pop();
         }
         current.innerText = textArr.join('');
+        last.innerText = '';
+        if (!current.innerText) {
+            current.innerText = '0';
+        }
         return;
     }
 
     let arr = current.innerText.split(' ');
     arr.pop();
     current.innerText = arr.join(' ');
+    last.innerText = '';
+    if (!current.innerText) {
+        current.innerText = '0';
+    }
     operatorPresent = false;
 
     operators.forEach((operator) => {
