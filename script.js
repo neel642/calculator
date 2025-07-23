@@ -286,6 +286,7 @@ function operate(operation) {
     for (let i = 0; i < opArr.length; i++) {
         if (!isNaN(opArr[i])) {
             nums.push(+(opArr[i]));
+            console.log(typeof nums[0]);
         }
         else {
             ops.push(opArr[i]);
@@ -332,8 +333,8 @@ function operate(operation) {
     if (!(Number.isInteger(nums[0]))) {
         let ansStr = nums[0].toString();
         let decimals = ansStr.split('.')[1].length;
-        if (decimals > 3) {
-            return parseFloat(nums[0].toFixed(3)).toString();
+        if (decimals > 6) {
+            return parseFloat(nums[0].toFixed(6)).toString();
         }
     }
     return parseFloat(nums[0]).toString();
@@ -354,6 +355,11 @@ equalto.addEventListener('click', () => {
 
     if (current.innerText === 'Cannot divide by 0!') {
         current.innerText = '0';
+        return;
+    }
+
+    if (!current.innerText.includes(' ')) {
+        last.innerText = current.innerText;
         return;
     }
 
