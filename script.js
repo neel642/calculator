@@ -1,6 +1,3 @@
-// light and dark mode toggle
-// 1.2 * 4.05 + 1.2 not working => ans.toFixed is not a function
-
 let numbers = document.querySelectorAll('.number-btn');
 let current = document.querySelector('.current-calc');
 let last = document.querySelector('.last-calc');
@@ -8,12 +5,18 @@ let clear = document.querySelector('.clear-btn');
 let operators = document.querySelectorAll('.operator-btn');
 
 let operatorPresent = false;
-let operationJustRan = false;
+let operationJustRan = false
 
 numbers.forEach((number) => {
     number.addEventListener('click', (e) => {
         operators.forEach((operator) => {
-            operator.style.backgroundColor = 'rgb(234, 213, 120)';
+            if (operator.classList.contains('add-btn') || 
+                operator.classList.contains('subtract-btn') ||
+                operator.classList.contains('multiply-btn') ||
+                operator.classList.contains('divide-btn') ||
+                operator.classList.contains('modulo-btn')) {
+                operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+            }
         });
 
         if (operationJustRan) {
@@ -38,7 +41,13 @@ clear.addEventListener('click', () => {
     last.innerText = '';
     current.innerText = '';
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
     operatorPresent = false;
     operationJustRan = false;
@@ -52,7 +61,13 @@ let modulo = document.querySelector('.modulo-btn');
 
 add.addEventListener('click', () => {
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 
     if (operatorPresent) {
@@ -70,7 +85,7 @@ add.addEventListener('click', () => {
     }
 
     if (current.innerText) {
-        add.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        add.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' +';
         operatorPresent = true;
     }
@@ -78,7 +93,13 @@ add.addEventListener('click', () => {
 
 subtract.addEventListener('click', () => {
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 
     if (operatorPresent) {
@@ -96,7 +117,7 @@ subtract.addEventListener('click', () => {
     }
 
     if (current.innerText) {
-        subtract.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        subtract.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' -';
         operatorPresent = true;
     }
@@ -104,7 +125,13 @@ subtract.addEventListener('click', () => {
 
 multiply.addEventListener('click', () => {
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 
     if (operatorPresent) {
@@ -122,7 +149,7 @@ multiply.addEventListener('click', () => {
     }
 
     if (current.innerText) {
-        multiply.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        multiply.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' *';
         operatorPresent = true;
     }
@@ -130,7 +157,13 @@ multiply.addEventListener('click', () => {
 
 divide.addEventListener('click', () => {
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 
     if (operatorPresent) {
@@ -148,7 +181,7 @@ divide.addEventListener('click', () => {
     }
 
     if (current.innerText) {
-        divide.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        divide.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' /';
         operatorPresent = true;
     }
@@ -156,7 +189,13 @@ divide.addEventListener('click', () => {
 
 modulo.addEventListener('click', () => {
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 
     if (operatorPresent) {
@@ -174,7 +213,7 @@ modulo.addEventListener('click', () => {
     }
 
     if (current.innerText) {
-        modulo.style.backgroundColor = 'rgba(209, 146, 88, 1)';
+        modulo.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' %';
         operatorPresent = true;
     }
@@ -182,67 +221,34 @@ modulo.addEventListener('click', () => {
 
 function performAddition(num1, num2) {
     let ans = num1 + num2;
-    console.log(ans);
-
-    if (!(Number.isInteger(ans))) {
-        let ansStr = ans.toString();
-        let decimals = ansStr.split('.')[1].length;
-        if (decimals > 3) {
-            ans = ans.toFixed(3);
-        }
-    }
     return +ans;
 }
 
 function performSubtraction(num1, num2) {
     let ans = num1 - num2;
-
-    if (!(Number.isInteger(ans))) {
-        let ansStr = ans.toString();
-        let decimals = ansStr.split('.')[1].length;
-        if (decimals > 3) {
-            ans = ans.toFixed(3);
-        }
-    }
     return +ans;
 }
 
 function performMultiplication(num1, num2) {
     let ans = num1 * num2;
-
-    if (!(Number.isInteger(ans))) {
-        let ansStr = ans.toString();
-        let decimals = ansStr.split('.')[1].length;
-        if (decimals > 3) {
-            ans = ans.toFixed(3);
-        }
-    }
     return +ans;
 }
 
 function performDivision(num1, num2) {
-    let ans = num1 / num2;
-
-    if (!(Number.isInteger(ans))) {
-        let ansStr = ans.toString();
-        let decimals = ansStr.split('.')[1].length;
-        if (decimals > 3) {
-            ans = ans.toFixed(3);
-        }
+    if (num2 === 0) {
+        alert('Cannot divide by 0!');
+        return;
     }
+    let ans = num1 / num2;
     return +ans;
 }
 
 function performModulo(num1, num2) {
-    let ans = num1 % num2;
-
-    if (!(Number.isInteger(ans))) {
-        let ansStr = ans.toString();
-        let decimals = ansStr.split('.')[1].length;
-        if (decimals > 3) {
-            ans = ans.toFixed(3);
-        }
+    if (num2 === 0) {
+        alert('Cannot divide by 0!');
+        return;
     }
+    let ans = num1 % num2;
     return +ans;
 }
 
@@ -297,6 +303,13 @@ function operate(operation) {
 
     operatorPresent = false;
     operationJustRan = true;
+    if (!(Number.isInteger(nums[0]))) {
+        let ansStr = nums[0].toString();
+        let decimals = ansStr.split('.')[1].length;
+        if (decimals > 3) {
+            return nums[0].toFixed(3);
+        }
+    }
     return nums[0];
 }
 
@@ -304,8 +317,15 @@ let equalto = document.querySelector('.equalto-btn');
 
 equalto.addEventListener('click', () => {
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
+
     let res = operate(current.innerText);
     last.innerText = current.innerText;
     current.innerText = `${res}`;
@@ -338,7 +358,13 @@ decimal.addEventListener('click', () => {
     }
 
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 });
 
@@ -362,7 +388,13 @@ deleteBtn.addEventListener('click', () => {
     operatorPresent = false;
 
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 });
 
@@ -379,6 +411,12 @@ negative.addEventListener('click', () => {
     }
 
     operators.forEach((operator) => {
-        operator.style.backgroundColor = 'rgb(234, 213, 120)';
+        if (operator.classList.contains('add-btn') || 
+            operator.classList.contains('subtract-btn') ||
+            operator.classList.contains('multiply-btn') ||
+            operator.classList.contains('divide-btn') ||
+            operator.classList.contains('modulo-btn')) {
+            operator.style.background = 'linear-gradient(135deg, #f28888ff, #ee5a24)';
+        }
     });
 });
