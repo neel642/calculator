@@ -1,6 +1,4 @@
 // only . should become 0.
-// consecutive divisions by 0 should give only one error
-// error to be displayed on current.innertext
 
 let numbers = document.querySelectorAll('.number-btn');
 let current = document.querySelector('.current-calc');
@@ -23,7 +21,7 @@ numbers.forEach((number) => {
             }
         });
 
-        if (current.innerText === '0') {
+        if (current.innerText === '0' || current.innerText === 'Cannot divide by 0!') {
             current.innerText = '';
         }
 
@@ -93,6 +91,10 @@ add.addEventListener('click', () => {
     }
 
     if (current.innerText) {
+        if (current.innerText === 'Cannot divide by 0!') {
+            current.innerText = '0';
+            return;
+        }
         add.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' +';
         operatorPresent = true;
@@ -125,6 +127,10 @@ subtract.addEventListener('click', () => {
     }
 
     if (current.innerText) {
+        if (current.innerText === 'Cannot divide by 0!') {
+            current.innerText = '0';
+            return;
+        }
         subtract.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' -';
         operatorPresent = true;
@@ -157,6 +163,10 @@ multiply.addEventListener('click', () => {
     }
 
     if (current.innerText) {
+        if (current.innerText === 'Cannot divide by 0!') {
+            current.innerText = '0';
+            return;
+        }
         multiply.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' *';
         operatorPresent = true;
@@ -189,6 +199,10 @@ divide.addEventListener('click', () => {
     }
 
     if (current.innerText) {
+        if (current.innerText === 'Cannot divide by 0!') {
+            current.innerText = '0';
+            return;
+        }
         divide.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' /';
         operatorPresent = true;
@@ -221,6 +235,10 @@ modulo.addEventListener('click', () => {
     }
 
     if (current.innerText) {
+        if (current.innerText === 'Cannot divide by 0!') {
+            current.innerText = '0';
+            return;
+        }
         modulo.style.background = 'linear-gradient(135deg, #e45757ff, #a41818ff)';
         current.innerText += ' %';
         operatorPresent = true;
@@ -229,35 +247,35 @@ modulo.addEventListener('click', () => {
 
 function performAddition(num1, num2) {
     let ans = num1 + num2;
-    return +ans;
+    return ans;
 }
 
 function performSubtraction(num1, num2) {
     let ans = num1 - num2;
-    return +ans;
+    return ans;
 }
 
 function performMultiplication(num1, num2) {
     let ans = num1 * num2;
-    return +ans;
+    return ans;
 }
 
 function performDivision(num1, num2) {
     if (num2 === 0) {
-        alert('Cannot divide by 0!');
+        current.innerText = 'Cannot divide by 0!';
         return;
     }
     let ans = num1 / num2;
-    return +ans;
+    return ans;
 }
 
 function performModulo(num1, num2) {
     if (num2 === 0) {
-        alert('Cannot divide by 0!');
+        current.innerText = 'Cannot divide by 0!';
         return;
     }
     let ans = num1 % num2;
-    return +ans;
+    return ans;
 }
 
 function operate(operation) {
@@ -315,10 +333,10 @@ function operate(operation) {
         let ansStr = nums[0].toString();
         let decimals = ansStr.split('.')[1].length;
         if (decimals > 3) {
-            return nums[0].toFixed(3);
+            return parseFloat(nums[0].toFixed(3)).toString();
         }
     }
-    return nums[0];
+    return parseFloat(nums[0]).toString();
 }
 
 let equalto = document.querySelector('.equalto-btn');
@@ -334,6 +352,11 @@ equalto.addEventListener('click', () => {
         }
     });
 
+    if (current.innerText === 'Cannot divide by 0!') {
+        current.innerText = '0';
+        return;
+    }
+
     let res = operate(current.innerText);
     last.innerText = current.innerText;
     current.innerText = `${res}`;
@@ -342,6 +365,11 @@ equalto.addEventListener('click', () => {
 let decimal = document.querySelector('.decimal-btn');
 
 decimal.addEventListener('click', () => {
+    if (current.innerText === 'Cannot divide by 0!') {
+        current.innerText = '0';
+        return;
+    }
+
     if (operationJustRan) {
         current.innerText = '';
         last.innerText = '';
@@ -358,10 +386,10 @@ decimal.addEventListener('click', () => {
     }
     else {
         if (current.innerText) {
-            current.innerText += ' .';
+            current.innerText += ' 0.';
         }
         else {
-            current.innerText += '.';
+            current.innerText += '0.';
         }
     }
 
@@ -379,6 +407,11 @@ decimal.addEventListener('click', () => {
 let deleteBtn = document.querySelector('.delete-btn');
 
 deleteBtn.addEventListener('click', () => {
+    if (current.innerText === 'Cannot divide by 0!') {
+        current.innerText = '0';
+        return;
+    }
+
     let text = current.innerText;
     textArr = text.split('');
     if ((!isNaN(textArr[textArr.length - 1])) || textArr[textArr.length - 1] === '.') {
@@ -417,6 +450,11 @@ deleteBtn.addEventListener('click', () => {
 let negative = document.querySelector('.negative-btn');
 
 negative.addEventListener('click', () => {
+    if (current.innerText === 'Cannot divide by 0!') {
+        current.innerText = '0';
+        return;
+    }
+
     arr = current.innerText.split(' ');
     if (!isNaN(arr[arr.length - 1])) {
         let num = +(arr[arr.length - 1]);
